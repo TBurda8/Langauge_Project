@@ -50,10 +50,8 @@ Identifiers name variables and functions. They are **case-sensitive** and cannot
 Current proposed rules:
 
 - The first character must be a letter or underscore (`_`).
-- Subsequent characters may include letters, digits, underscores, and dashes.
+- Subsequent characters may include letters, digits, and underscores.
 - Reserved keywords cannot be used as identifiers.
-
-**To resolve:** Allowing dashes within identifiers may conflict with the subtraction operator. Define how `total-cost` should be tokenized before implementing the lexer.
 
 ### 2.4 Reserved Keywords
 
@@ -65,7 +63,7 @@ Current proposed rules:
 | `end` | Terminates a block |
 | `print` | Writes to standard output |
 | `if` | Begins conditional execution |
-| `than` | Begins a conditional block (spelling to confirm) |
+| `than` | Begins a conditional block |
 | `else` | Introduces an alternative conditional branch |
 | `while` | Begins a conditional loop |
 | `do` | Begins a loop body |
@@ -110,7 +108,14 @@ Texo will support standard arithmetic operations, including addition, subtractio
 
 Standard arithmetic precedence is planned. Parentheses override the usual order of operations.
 
-*The full precedence table has not yet been defined.*
+| Operator | Type | Associativity |
+| --- | --- | ---|
+| () | Grouping | left-to-right |
+| ! & ~ ++ | Unary Operators | right-to-left |
+| * / % | Arithmetic Operators | left-to-right|
+| + - | Arithmetic Operators | left-to-right |
+
+
 
 ### 3.3 Operator Associativity
 
@@ -173,14 +178,12 @@ if condition, statement;
 **Multiline form:**
 
 ```texo
-if condition then
+if condition than
     statements
 else
     statements
 end
 ```
-
-**To resolve:** The reserved-keyword list currently uses `than`, while the multiline conditional form uses `then`. Choose one spelling and use it consistently.
 
 ### 4.5 Loops
 
@@ -195,8 +198,39 @@ end
 *To be specified.*
 
 ## 7. Formal Grammar
+```
+digit = "0" | "1" | "2" | "3" | "4" 
+      | "5" | "6" | "7" | "8" | "9" ;
+     
+integer = digit, {digit} ;
 
-*To be specified.*
+letter = "a" | "b" | ... | "z"
+       | "A" | "B" | ... | "Z" ;
+       
+identifier = letter, {letter | digit | "_"} ;
+
+expression = term, {("+" | "-"), term} ;
+
+term = factor, {("*" | "/"), factor} ;
+
+factor = integer | identifier | "(", expression, ")" ;
+
+print_statement = "print", expression ;
+
+function = "start", identifier,
+           ["in", parameter_list],
+           newline,
+           {statement},
+           "end" ;
+           
+parameter_list = identifier, {",", identifier} ;
+
+statement = assignment
+          | print_statement
+          | return_statement ;
+
+return_statement = "out", expression ;
+```
 
 ## 8. Error Handling
 

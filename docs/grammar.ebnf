@@ -1,0 +1,37 @@
+program = {function} ;
+
+digit = "0" | "1" | "2" | "3" | "4"
+      | "5" | "6" | "7" | "8" | "9" ;
+
+integer = digit, {digit} ;
+
+letter = "a" | "b" | ... | "z"
+       | "A" | "B" | ... | "Z" ;
+
+identifier = letter, {letter | digit | "_"} ;
+
+assignment = identifier, "=", expression ;
+
+expression = term, {("+" | "-"), term} ;
+
+term = factor, {("*" | "/"), factor} ;
+
+factor = integer
+       | identifier
+       | "(", expression, ")" ;
+
+print_statement = "print", expression ;
+
+function = "start", identifier,
+           ["in", parameter_list],
+           newline,
+           {statement},
+           "end" ;
+
+parameter_list = identifier, {",", identifier} ;
+
+statement = assignment
+          | print_statement
+          | return_statement ;
+
+return_statement = "out", expression ;
