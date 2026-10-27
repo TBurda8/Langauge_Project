@@ -1,1 +1,21 @@
+# Java Output
+*.class
+*.jar
+out/
+build/
 
+# IntelliJ
+.idea/
+*.iml
+
+# VSCode
+.vscode/
+
+# Files
+.DS_Store
+Thumbs.db
+
+# Temp
+*.log
+*.tmp
+*~
