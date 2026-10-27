@@ -1,105 +1,203 @@
+
 # Texo Language Specification
 
-Version 0.1.0 DRAFT \
-In Development
+**Version:** 0.1.0 (Draft)  
+**Status:** In development
 
-1. Language Overview \
-    1.1 Design \
-    \
-    Texo is a general purpose language with lightweight syntax meant to be easily readable.
-    It is meant to be easy to understand, with many declarations based on in and out. Boilerplate is meant to be minimal, 
-    and blocks are explicitly terminated. Variables are implicit and everything is consistent. 
-    Texo will be executed by a tree- walk interpreter in Java. Code is tokenized, put into a AST, and interpreted.\
-    \
-    1.2 Language Characteristics 
-    
+## 1. Language Overview
 
-2. Lexical Structures \
-    2.1 Whitespace \
-    \
-    Whitespace seperates tokens and improves readibility. Spaces, tabs and line breaks are ignored except for token seperation.
-    There will be a few exceptions to this relating to declaration and future updates.\
-    \
-    2.2 Comments \
-    \
-    Comments are made by #. Multi line comments are made by #/, ending with /#.\
-    \
-    2.3 Identifiers \
-    \
-    Identifiers are names assigned to variables and functions. They must begin with a letter or underscore,
-    and subsequent characters can be nearly any basic character, including letters, numbers, dashes, and underscores.
-    They cannot be reserved keywords. They are case-sensitive.\
-    \
-    2.4 Keywords \
-    \
-    Reserved keywords are: start - begins a function declaration, in - introduces function parameters, 
-    out - returns a value, end - terminates a block, print - writes to standard output,
-    if - conditional execution, than - begins a conditional block, else - alternative branch, 
-    while - conditional loop, do - begins loop body, put - reading user input. Many more will be added through development.\
-    \
-    2.5 Literals \
-    \
-    Integer numbers: 0, 10, 23; Decimal numbers: 3.14, 0.5; Strings: "Hello World!"; Booleans: true, false\
-    \
-    2.6 Operators and Delimiters
-    \
-    \
-    = assigns, + adds, - subtracts, * multiplies, / divides, == equality, > greater than, < less than, ; terminates, , seperates, () groups.
-    Additional ones will be added. 
-    
+### 1.1 Design
 
-3. Expressions \
-    3.1 Arithmetic \
-    \
-    Texo will support standard aritmetic operation, including addition, subtraction, multiplication, and division.\
-    \
-    3.2 Operator Precedence \
-    \
-    Standard operator precedence is planned. Parentheses override.\
-    \
-    3.3 Operator Associativity \
-    \
-    Left to right if equal precedence.\
-    \
-    3.4 Grouping \
-    \
-    Parentheses group expressions.
+Texo is a general-purpose programming language with lightweight syntax designed to be easy to read and understand.
 
+The language emphasizes minimal boilerplate, consistent constructs, implicit variable declarations, and explicitly terminated blocks. Many declarations and operations are organized around the `in` and `out` keywords.
 
-4. Statements \
-    4.1 Variable Declarations \
-    \
-    Variables in Texo are created implicitly on the first assignment.
-Subsequent assignments to a preexisting variable update the value in the variable.
-The syntax for this is as follows: ```identifier = expression;``` and a example is:
-```count = 10;```
-Variable names are case sensitive, a assignment ends with a semicolon, and the right expression is evaluated before
-the assignment occurs. Refrencing a undefined variable will produce a error.\
-    \
-    4.2 Assignment \
-    \
-    4.3 Output \
-    \
-    The print statement evaluates a expression and displays value.\
-    \
-    4.4 Conditional Statements \
-    \
-    Form is if condition, statement. Multiline is if condition, then statements else statements end\
-    \
-    4.5 Loops
+Texo will use a **tree-walk interpreter written in Java**. Source code will be tokenized, parsed into an **abstract syntax tree (AST)**, and then interpreted.
 
+### 1.2 Language Characteristics
 
-5. Types and Values 
+*To be specified.*
 
+## 2. Lexical Structure
 
-6. Scoping and Functions
-    
+### 2.1 Whitespace
 
-7. Formal Grammar
+Whitespace separates tokens and improves readability. Spaces, tabs, and line breaks are generally ignored except when needed to separate tokens.
 
+Some declarations may have additional whitespace or line-placement requirements. These exceptions will be documented as the language develops.
 
-8. Error Handling
+### 2.2 Comments
 
+Single-line comments begin with `#`.
 
+```texo
+# This is a single-line comment.
+```
 
+Multiline comments begin with `#/` and end with `/#`.
 
+```texo
+#/
+This is a multiline comment.
+It can span several lines.
+/#
+```
+
+### 2.3 Identifiers
+
+Identifiers name variables and functions. They are **case-sensitive** and cannot be reserved keywords.
+
+Current proposed rules:
+
+- The first character must be a letter or underscore (`_`).
+- Subsequent characters may include letters, digits, underscores, and dashes.
+- Reserved keywords cannot be used as identifiers.
+
+**To resolve:** Allowing dashes within identifiers may conflict with the subtraction operator. Define how `total-cost` should be tokenized before implementing the lexer.
+
+### 2.4 Reserved Keywords
+
+| Keyword | Purpose |
+| --- | --- |
+| `start` | Begins a function declaration |
+| `in` | Introduces function parameters |
+| `out` | Returns a value from a function |
+| `end` | Terminates a block |
+| `print` | Writes to standard output |
+| `if` | Begins conditional execution |
+| `than` | Begins a conditional block (spelling to confirm) |
+| `else` | Introduces an alternative conditional branch |
+| `while` | Begins a conditional loop |
+| `do` | Begins a loop body |
+| `put` | Reads user input |
+
+Additional keywords may be introduced during development.
+
+### 2.5 Literals
+
+| Literal type | Examples |
+| --- | --- |
+| Integer | `0`, `10`, `23` |
+| Decimal | `3.14`, `0.5` |
+| String | `"Hello World!"` |
+| Boolean | `true`, `false` |
+
+### 2.6 Operators and Delimiters
+
+| Symbol | Purpose |
+| --- | --- |
+| `=` | Assignment |
+| `+` | Addition |
+| `-` | Subtraction |
+| `*` | Multiplication |
+| `/` | Division |
+| `==` | Equality comparison |
+| `>` | Greater-than comparison |
+| `<` | Less-than comparison |
+| `;` | Statement terminator |
+| `,` | Separator |
+| `(` `)` | Grouping |
+
+Additional operators and delimiters may be added later.
+
+## 3. Expressions
+
+### 3.1 Arithmetic
+
+Texo will support standard arithmetic operations, including addition, subtraction, multiplication, and division.
+
+### 3.2 Operator Precedence
+
+Standard arithmetic precedence is planned. Parentheses override the usual order of operations.
+
+*The full precedence table has not yet been defined.*
+
+### 3.3 Operator Associativity
+
+Operators with equal precedence will be evaluated from left to right.
+
+### 3.4 Grouping
+
+Parentheses group expressions.
+
+## 4. Statements
+
+### 4.1 Variable Declarations
+
+Variables are created implicitly on their first assignment, without a separate declaration keyword.
+
+**Syntax:**
+
+```texo
+identifier = expression;
+```
+
+**Example:**
+
+```texo
+count = 10;
+```
+
+Rules:
+
+- Variable names are case-sensitive.
+- Assignment statements end with a semicolon (`;`).
+- The right-hand expression is evaluated before the value is assigned.
+- Referencing an undefined variable produces an error.
+
+### 4.2 Assignment
+
+Assignments to an existing variable update its stored value.
+
+```texo
+count = 10;
+count = count + 5;
+```
+
+### 4.3 Output
+
+The `print` statement evaluates an expression and displays its value.
+
+```texo
+print count;
+```
+
+### 4.4 Conditional Statements
+
+**Single-line form:**
+
+```texo
+if condition, statement;
+```
+
+**Multiline form:**
+
+```texo
+if condition then
+    statements
+else
+    statements
+end
+```
+
+**To resolve:** The reserved-keyword list currently uses `than`, while the multiline conditional form uses `then`. Choose one spelling and use it consistently.
+
+### 4.5 Loops
+
+*Syntax and behavior to be specified.*
+
+## 5. Types and Values
+
+*To be specified.*
+
+## 6. Scoping and Functions
+
+*To be specified.*
+
+## 7. Formal Grammar
+
+*To be specified.*
+
+## 8. Error Handling
+
+*To be specified.*
