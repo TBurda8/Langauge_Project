@@ -4,7 +4,7 @@ Texo is a experimental intrepreted programming language built from scratch in Ja
 The goal is to design a small readable language and to implement all systems needed to use it, like a lexer, parser, ASTs, and a intrepreter. 
 Texo will run source files from the terminal.
 
-![System diagram](docs/diagram.png)
+![System diagram](docs/Project-Diagram.png)
 
 ## Tech Stack
 
